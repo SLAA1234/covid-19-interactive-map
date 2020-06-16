@@ -66,6 +66,21 @@ folium.raster_layers.TileLayer('CartoDB Dark_Matter').add_to(m)
         
 folium.LayerControl().add_to(m)
 
+
+
+from folium import plugins
+
+# add mini map to map
+minimap = plugins.MiniMap(location = [55.5999619,13.0059402],toggle_display=True)
+m.add_child(minimap)
+
+# add scroll zoom toggler to map
+plugins.ScrollZoomToggler().add_to(m)
+
+# add full screen button to map
+plugins.Fullscreen(position='topright').add_to(m)
+
+
 # add marker
 def marker(x):
     folium.Marker(location=[x[0], x[1]],
