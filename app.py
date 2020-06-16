@@ -81,15 +81,15 @@ plugins.ScrollZoomToggler().add_to(m)
 plugins.Fullscreen(position='topright').add_to(m)
 
 
-# add marker
+# add marker. Large data so use apply instead of for
 def marker(x):
     folium.Marker(location=[x[0], x[1]],
                 tooltip="Click for more",
-                popup='{}\nConfirmed Cases: {}'.format(x[3],x[2]),
+                popup='{}\n<strong>Confirmed</strong>: {}\n\n<strong>Deaths</strong>: {}'.format(x[3],x[2], x[4]),
                 icon=folium.Icon(color='black'),
                 control_scale=True
                 ).add_to(m);
-df[['Lat', 'Long_', 'Confirmed','Combined_Key']].dropna(subset=['Lat','Long_']).apply(lambda x: marker(x), axis=1);
+df[['Lat', 'Long_', 'Confirmed','Combined_Key', 'Deaths']].dropna(subset=['Lat','Long_']).apply(lambda x: marker(x), axis=1);
 
 # create html_map variable
 html_map = m._repr_html_(); 
