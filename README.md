@@ -11,10 +11,10 @@ Data comes from the Center for Systems Science and Engineering (CSSE) at Johns H
 https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/06-16-2020.csv. 
 
 <strong>Module</strong>:
-folium is used to create map, control layer and add marker. Use Malmö as center of the map.
-pandas is used to handle csv file and analyze data.
-ipywidgets is used to show different map_type.
-plugins is used to add minimap, ScrollZoomToggler and Full screen button to basic map.
+folium is used to create map, control layer and add marker. Use Malmö as center of the map.\n
+pandas is used to handle csv file and analyze data.\n
+ipywidgets is used to show different map_type.\n
+plugins is used to add minimap, ScrollZoomToggler and Full screen button to basic map.\n
 flask is used to build a web application.
 
 <strong>Class</strong>:
