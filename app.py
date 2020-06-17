@@ -1,22 +1,14 @@
-# # making a table, as variable
-# def findTopDeathsCases(x):
-#     import pandas as pd;
-#     df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/06-11-2020.csv');
-#     df_country = df.groupby('Country_Region').sum()[['Confirmed', 'Deaths', 'Recovered', 'Active', 'Lat', 'Long_']];
-#     df_Deaths = df_country.sort_values(['Deaths'], ascending=False);
-#     topDeaths = df_Deaths.head(x)
-#     return topDeaths;
-
-# topDeaths = findTopDeathsCases(15).to_html();
-
 import folium;
 import ipywidgets;
 import pandas as pd;
+from folium import plugins;
+from pip._internal.commands import debug
+from flask import Flask, render_template;
 
 # import data
-df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/06-11-2020.csv');
+df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/06-16-2020.csv');
 
-# map
+# map. use Malmö' location as center
 m = folium.Map(location = [55.5999619,13.0059402], zoom_start=6)
 
 #show map types using ipywidgets     
@@ -66,10 +58,6 @@ folium.raster_layers.TileLayer('CartoDB Dark_Matter').add_to(m)
         
 folium.LayerControl().add_to(m)
 
-
-
-from folium import plugins
-
 # add mini map to map
 minimap = plugins.MiniMap(location = [55.5999619,13.0059402],toggle_display=True)
 m.add_child(minimap)
@@ -80,12 +68,11 @@ plugins.ScrollZoomToggler().add_to(m)
 # add full screen button to map
 plugins.Fullscreen(position='topright').add_to(m)
 
-
-# add marker. Large data so use apply instead of for
+# add marker. Large data so use apply instead of for-loop
 def marker(x):
     folium.Marker(location=[x[0], x[1]],
                 tooltip="Click for more",
-                popup='{}\n<strong>Confirmed</strong>: {}\n\n<strong>Deaths</strong>: {}'.format(x[3],x[2], x[4]),
+                popup='{}\n<strong>Confirmed</strong>: {}\n <strong>Deaths</strong>: {}'.format(x[3],x[2], x[4]),
                 icon=folium.Icon(color='black'),
                 control_scale=True
                 ).add_to(m);
@@ -95,8 +82,7 @@ df[['Lat', 'Long_', 'Confirmed','Combined_Key', 'Deaths']].dropna(subset=['Lat',
 html_map = m._repr_html_(); 
 
 # import flask
-from pip._internal.commands import debug
-from flask import Flask, render_template;
+
 
 app = Flask(__name__)
 
