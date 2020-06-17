@@ -7,7 +7,7 @@ Lisa Wang
 This repository shows covid-19 data of 6/16/2020 on world map. Code was written in Python in Visual Studio Code.
 
 <strong>Data</strong>:
-Data comes from the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University./n
+Data comes from the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University.
 https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/06-16-2020.csv. 
 
 <strong>Module</strong>:
