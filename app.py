@@ -62,8 +62,8 @@ def marker(x):
                 popup='{}\n<strong>Confirmed</strong>: {}\n <strong>Deaths</strong>: {}'.format(x[3],x[2], x[4]),
                 icon=folium.Icon(color='black'),
                 control_scale=True
-                ).add_to(m);
-df[['Lat', 'Long_', 'Confirmed','Combined_Key', 'Deaths']].dropna(subset=['Lat','Long_']).apply(lambda x: marker(x), axis=1);
+                ).add_to(m)
+df[['Lat', 'Long_', 'Confirmed','Combined_Key', 'Deaths']].dropna(subset=['Lat','Long_']).apply(lambda x: marker(x), axis=1)
 
 # create html_map variable
 html_map = m._repr_html_()
@@ -73,7 +73,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('home.html', cmap=html_map);
+    return render_template('home.html', cmap=html_map)
 
 if __name__ == '__main__':
-    app.run(debug==True);
+    app.run(debug==True)
