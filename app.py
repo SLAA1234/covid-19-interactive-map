@@ -5,6 +5,15 @@ from folium import plugins;
 from pip._internal.commands import debug
 from flask import Flask, render_template;
 
+class MapType:
+    def __init__(self,map_type):
+        self.map_type = map_type;
+    
+    def select_map_type(self,map_type):
+        return folium.Map(location = [55.5999619,13.0059402],
+            tiles = self.map_type,
+            zoom_start = 6);
+
 # import data
 df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/06-16-2020.csv');
 
@@ -13,38 +22,16 @@ m = folium.Map(location = [55.5999619,13.0059402], zoom_start=6)
 
 #show map types using ipywidgets     
 select_widget=ipywidgets.Select(
-    options=['Open Street Map', 'Stamen Terrain', 'Toner', 'Watercolor', 'Positron', 'Dark Matter'],
+    options=['Open Street Map', 'Stamen Terrain', 'Stamen Toner', 'Stamen Watercolor', 'CartoDB Positron', 'CartoDB Dark_Matter'],
         value='Stamen Terrain',
         description='Map Type:',
         disabled=False)
-           
+
 def select(map_type):
-    if map_type == 'Stamen Terrain':
-        return folium.Map(location = [55.5999619,13.0059402],
-            tiles = 'Stamen Terrain',
-            zoom_start = 6);
-    if map_type == 'Open Street Map':
-        return folium.Map(location = [55.5999619,13.0059402],
-            tiles = 'Open Street Map',
-            zoom_start = 6);
-    if map_type == 'Toner':
-        return folium.Map(location = [55.5999619,13.0059402],
-            tiles = 'Stamen Toner',
-            zoom_start = 6);
-    if map_type == 'Watercolor':
-        return folium.Map(location = [55.5999619,13.0059402],
-            tiles = 'Stamen Watercolor',
-            zoom_start = 6);
-    if map_type == 'Positron':
-        return folium.Map(location = [55.5999619,13.0059402],
-            tiles = 'CartoDB Positron',
-            zoom_start = 6);
-    if map_type == 'Dark Matter':
-        return folium.Map(location = [55.5999619,13.0059402],
-            tiles = 'CartoDB Dark_Matter',
-            zoom_start = 6);  
+    map_types = ['Open Street Map', 'Stamen Terrain', 'Stamen Toner', 'Stamen Watercolor', 'CartoDB Positron', 'CartoDB Dark_Matter'];
+    for map_type in map_types:
+        return MapType(MapType.select_map_type(map_type));  
            
-  
 ipywidgets.interact(select, map_type=select_widget)
     
 # add layer control to show different maps
@@ -82,12 +69,7 @@ df[['Lat', 'Long_', 'Confirmed','Combined_Key', 'Deaths']].dropna(subset=['Lat',
 html_map = m._repr_html_(); 
 
 # import flask
-
-
 app = Flask(__name__)
-
-# show with table     return render_template('home.html', table=topDeaths, cmap=html_map);
-
 
 @app.route('/')
 def home():
