@@ -1,9 +1,9 @@
-import folium;
-import ipywidgets;
-import pandas as pd;
-from folium import plugins;
+import folium
+import ipywidgets
+import pandas as pd
+from folium import plugins
 from pip._internal.commands import debug
-from flask import Flask, render_template;
+from flask import Flask, render_template
 
 class MapType:
     def __init__(self,map_type):
@@ -66,7 +66,7 @@ def marker(x):
 df[['Lat', 'Long_', 'Confirmed','Combined_Key', 'Deaths']].dropna(subset=['Lat','Long_']).apply(lambda x: marker(x), axis=1);
 
 # create html_map variable
-html_map = m._repr_html_(); 
+html_map = m._repr_html_()
 
 # import flask
 app = Flask(__name__)
