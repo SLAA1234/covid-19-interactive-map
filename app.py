@@ -1,9 +1,9 @@
-import folium;
-import ipywidgets;
-import pandas as pd;
-from folium import plugins;
+import folium
+import ipywidgets
+import pandas as pd
+from folium import plugins
 from pip._internal.commands import debug
-from flask import Flask, render_template;
+from flask import Flask, render_template
 
 class MapType:
     def __init__(self,map_type):
@@ -62,18 +62,18 @@ def marker(x):
                 popup='{}\n<strong>Confirmed</strong>: {}\n <strong>Deaths</strong>: {}'.format(x[3],x[2], x[4]),
                 icon=folium.Icon(color='black'),
                 control_scale=True
-                ).add_to(m);
-df[['Lat', 'Long_', 'Confirmed','Combined_Key', 'Deaths']].dropna(subset=['Lat','Long_']).apply(lambda x: marker(x), axis=1);
+                ).add_to(m)
+df[['Lat', 'Long_', 'Confirmed','Combined_Key', 'Deaths']].dropna(subset=['Lat','Long_']).apply(lambda x: marker(x), axis=1)
 
 # create html_map variable
-html_map = m._repr_html_(); 
+html_map = m._repr_html_()
 
 # import flask
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('home.html', cmap=html_map);
+    return render_template('home.html', cmap=html_map)
 
 if __name__ == '__main__':
-    app.run(debug==True);
+    app.run(debug==True)
