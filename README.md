@@ -23,6 +23,8 @@ plugins is used to add minimap, ScrollZoomToggler and Full screen button to basi
 
 flask is used to build a web application.
 
+bootstrap is used to do the css part.
+
 <strong>Class</strong>:
 
 MapType is created.
